@@ -1,0 +1,74 @@
+$(document).ready(function(){
+	
+	events();
+	function events(){
+		$.ajax({
+			url	:	"backend/action.php",
+			method:	"POST",
+			data	:	{GetEvent:1},
+			success	:	function(data){
+				$("#get_events").html(data);
+				
+			}
+		})
+	}
+	$("#feedback_form").on("submit",function(event){
+		event.preventDefault();
+		$(".overlay").show();
+		$.ajax({
+			url : "backend/feedback.php",
+			method : "POST",
+			data : $("#feedback_form").serialize(),
+			success : function(data){
+				$(".overlay").hide();
+				if (data == "register_success") {
+					window.location.href = "./index.php";
+				}else{
+					$("#feedback_msg").html(data);
+				}
+				
+			}
+		})
+	})
+
+	$("#signup_form").on("submit",function(event){
+		event.preventDefault();
+		$(".overlay").show();
+		$.ajax({
+			url : "backend/register.php",
+			method : "POST",
+			data : $("#signup_form").serialize(),
+			success : function(data){
+				$(".overlay").hide();
+				if (data == "register_success") {
+					window.location.href = "./index.php";
+				}else{
+					$("#signup_msg").html(data);
+				}
+				
+			}
+		})
+	})
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
